@@ -1,0 +1,4 @@
+Earlier example only links two object files: add.o and addDemo.o. This is easy to list in the
+command line, but also it is easy to maintain these two files. Libraries contain hundreds of object files...sometimes thousands.
+In such a situation, it becomes difficult to maintain such a huge set of object files.
+Static libraries bundle a number of object files into one file, usually .a extension on linux.
