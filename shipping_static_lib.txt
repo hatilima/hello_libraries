@@ -1,0 +1,22 @@
+Building a .c file requires that the #included .h files are present. This means that
+shipping a static lib requires that the libSomeLib.a and the SomeLib.h are shipped together.
+The consumer then makes the #include"SomeLib.h" in their source files for them to
+build their object files. They then should point to the location of the
+libSomeLib.a file in their linker command and do the linking.
+
+So building the static libSomeLib.a file requires its .c and .h files...and then shipping only takes the .h and .a.
+
+Though some questions still arise:
+1. What would happen if the original .h had two functions, add() and sub() and 
+the consumer's code only uses add() and not sub(); and then the consumer does 
+not use the original .h but writes their own that only has add(). Would the consumer code compile?
+I tested this scenario and the code still works. I shipped a libSomeLib.a that has add() and sub() inside.
+I then created a someLib.h that only had add() and the consumer.o object was created and then linked with
+the static lib.
+
+2. Or what would happen if the consumer adds another function to the .h, e.g. in addition to
+add() and sub(), the user adds div(). Would this compile? - yes, this compiles and runs.
+
+
+In short, just make sure that the someLib.h has the prototypes for the functions
+that you are consuming from the libsomeLib.a static lib.
